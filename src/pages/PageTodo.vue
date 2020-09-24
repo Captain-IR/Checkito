@@ -1,38 +1,48 @@
 <template>
-  <q-page class="q-pa-md">
-    <div class="row q-mb-lg">
-      <Search />
-      <Sort />
-    </div>
-    
+  <q-page>
+    <div class="q-pa-md absolute full-width full-height column">
+      <div class="row q-mb-lg">
+        <Search />
+        <Sort />
+      </div>
 
-    <p
-      v-if="
-        search &&
-          !Object.keys(tasksTodo).length &&
-          !Object.keys(tasksCompleted).length
-      "
-    >
-      No search results.
-    </p>
+      <p
+        v-if="
+          search &&
+            !Object.keys(tasksTodo).length &&
+            !Object.keys(tasksCompleted).length
+        "
+      >
+        No search results.
+      </p>
 
-    <NoTasks v-if="!Object.keys(tasksTodo).length && !search" />
+      <q-scroll-area
+        class="q-scroll-area-tasks"
+      >
+        <NoTasks v-if="!Object.keys(tasksTodo).length && !search" />
 
-    <TasksTodo v-if="Object.keys(tasksTodo).length" :tasksTodo="tasksTodo" />
+        <TasksTodo
+          v-if="Object.keys(tasksTodo).length"
+          :tasksTodo="tasksTodo"
+        />
 
-    <TasksCompleted
-      v-if="Object.keys(tasksCompleted).length"
-      :tasksCompleted="tasksCompleted"
-    />
+        <TasksCompleted
+          v-if="Object.keys(tasksCompleted).length"
+          :tasksCompleted="tasksCompleted"
+          class="q-mb-xl"
+        />
+      </q-scroll-area>
 
-    <div class="absolute-bottom text-center q-mb-lg">
-      <q-btn
-        @click="showAddTask = true"
-        round
-        color="primary"
-        size="24px"
-        icon="add"
-      />
+      <div class="absolute-bottom text-center q-mb-lg no-pointer-events">
+        <q-btn
+          @click="showAddTask = true"
+          round
+          class="all-pointer-events"
+          color="primary"
+          size="24px"
+          icon="add"
+        />
+      </div>
     </div>
 
     <q-dialog v-model="showAddTask">
@@ -66,9 +76,14 @@ export default {
     TasksCompleted: require("components/Tasks/TasksCompleted.vue").default,
     NoTasks: require("components/Tasks/NoTasks.vue").default,
     Search: require("components/Tasks/Tools/Search.vue").default,
-    Sort: require("components/Tasks/Tools/Sort.vue").default,
+    Sort: require("components/Tasks/Tools/Sort.vue").default
   }
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+  .q-scroll-area-tasks {
+    display: flex;
+    flex-grow: 1;
+  }
+</style>

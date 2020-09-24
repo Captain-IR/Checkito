@@ -1,9 +1,10 @@
 <template>
   <div class="row q-mb-sm">
+    <!-- autofocus removed -->
     <q-input
       @input="$emit('update:name', $event)"
       outlined
-      autofocus
+      v-select-all
       clearable
       label="Title"
       class="col"
@@ -17,8 +18,13 @@
 </template>
 
 <script>
+import { selectAll } from "src/directives/directive-select-all";
+
 export default {
-  props: ["name"]
+  props: ["name"],
+  directives: {
+    selectAll
+  }
 };
 </script>
 

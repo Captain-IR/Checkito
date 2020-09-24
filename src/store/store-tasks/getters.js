@@ -46,7 +46,6 @@ export function tasksTodo(state, getters) {
       tasks[key] = { ...task };
     }
   });
-  console.log(tasks);
   return tasks;
 }
 
@@ -59,6 +58,5 @@ export function tasksCompleted(state, getters) {
       tasks[key] = { ...task };
     }
   });
-  console.log(tasks);
   return tasks;
 }

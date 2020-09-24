@@ -3,17 +3,19 @@
     clickable
     @click="updateTask({ id, updates: { completed: !task.completed } })"
     :class="task.completed ? 'bg-green-1' : 'bg-orange-1'"
+    v-touch-hold:1000.mouse="showEditTaskModal"
     v-ripple
   >
     <q-item-section side>
       <q-checkbox v-model="task.completed" />
     </q-item-section>
     <q-item-section>
-      <q-item-label :class="{ 'text-strike': task.completed }">{{
-        task.name
-      }}</q-item-label>
+      <q-item-label
+        :class="{ 'text-strike': task.completed }"
+        v-html="$options.filters.searchHighlight(task.name, search)"
+      ></q-item-label>
     </q-item-section>
-    
+
     <q-item-section v-if="task.dueDate" side>
       <div class="row">
         <div class="column justify-center">
@@ -21,7 +23,7 @@
         </div>
         <div class="column">
           <q-item-label class="row justify-end" caption>{{
-            task.dueDate
+            task.dueDate | niceDate
           }}</q-item-label>
           <q-item-label class="row justify-end" caption
             ><small>{{ task.dueTime }}</small></q-item-label
@@ -33,7 +35,7 @@
     <q-item-section side>
       <div class="row">
         <q-btn
-          @click.stop="showEditTask = true"
+          @click.stop="showEditTaskModal"
           flat
           round
           dense
@@ -58,7 +60,8 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
+import { date } from "quasar";
 
 export default {
   props: ["task", "id"],
@@ -67,8 +70,14 @@ export default {
       showEditTask: false
     };
   },
+  computed: {
+    ...mapState("tasks", ["search"])
+  },
   methods: {
     ...mapActions("tasks", ["updateTask", "deleteTask"]),
+    showEditTaskModal() {
+      this.showEditTask = true;
+    },
     promptToDelete: function(id) {
       this.$q
         .dialog({
@@ -84,6 +93,20 @@ export default {
   },
   components: {
     EditTask: require("components/Tasks/Modals/EditTask.vue").default
+  },
+  filters: {
+    niceDate: function(value) {
+      return date.formatDate(value, "ddd MMM-D");
+    },
+    searchHighlight: function(value, search) {
+      let searchRegExp = new RegExp(search, "gi");
+      if (search) {
+        return value.replace(searchRegExp, match => {
+          return `<span class="bg-yellow-6">${match}</span>`;
+        });
+      }
+      return value;
+    }
   }
 };
 </script>
