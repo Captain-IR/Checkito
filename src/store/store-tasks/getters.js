@@ -1,9 +1,30 @@
-export function tasksFiltered(state) {
+export function tasksSorted(state) {
+  let tasksSorted = {};
+  let keysOrdered = Object.keys(state.tasks);
+  keysOrdered.sort((a, b) => {
+    let taskAProp = state.tasks[a][state.sort].toLowerCase();
+    let taskBProp = state.tasks[b][state.sort].toLowerCase();
+
+    if (taskAProp > taskBProp) return 1
+    else if (taskAProp < taskBProp) return -1
+    else return 0
+
+  });
+
+  keysOrdered.forEach((key => {
+    tasksSorted[key] = state.tasks[key]
+  }))
+
+  return tasksSorted;
+}
+
+export function tasksFiltered(state, getters) {
+  let tasksSorted = getters.tasksSorted
   let tasksFiltered = {};
   if (state.search) {
     // populate empty object
-    Object.keys(state.tasks).forEach(function(key) {
-      const task = state.tasks[key],
+    Object.keys(tasksSorted).forEach(function(key) {
+      const task = tasksSorted[key],
         taskNameLower = task.name.toLowerCase(),
         stateSearchLower = state.search.toLowerCase();
 
@@ -13,7 +34,7 @@ export function tasksFiltered(state) {
     });
     return tasksFiltered;
   }
-  return state.tasks;
+  return tasksSorted;
 }
 
 export function tasksTodo(state, getters) {

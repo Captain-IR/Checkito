@@ -2,7 +2,9 @@
   <q-page class="q-pa-md">
     <div class="row q-mb-lg">
       <Search />
+      <Sort />
     </div>
+    
 
     <p
       v-if="
@@ -63,7 +65,8 @@ export default {
     TasksTodo: require("components/Tasks/TasksTodo.vue").default,
     TasksCompleted: require("components/Tasks/TasksCompleted.vue").default,
     NoTasks: require("components/Tasks/NoTasks.vue").default,
-    Search: require("components/Tasks/Tools/Search.vue").default
+    Search: require("components/Tasks/Tools/Search.vue").default,
+    Sort: require("components/Tasks/Tools/Sort.vue").default,
   }
 };
 </script>

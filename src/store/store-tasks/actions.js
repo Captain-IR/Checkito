@@ -21,3 +21,7 @@ export function deleteTask({ commit }, id) {
 export function setSearch({commit}, value) {
   commit('SET_SEARCH', value)
 }
+
+export function setSort({commit}, value) {
+  commit('SET_SORT', value)
+}
