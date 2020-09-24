@@ -16,10 +16,14 @@
         No search results.
       </p>
 
-      <q-scroll-area
-        class="q-scroll-area-tasks"
-      >
-        <NoTasks v-if="!Object.keys(tasksTodo).length && !search" />
+      <q-scroll-area class="q-scroll-area-tasks">
+        <NoTasks
+          v-if="
+            !Object.keys(tasksTodo).length &&
+              !search &&
+              !settings.showTasksInOneList
+          "
+        />
 
         <TasksTodo
           v-if="Object.keys(tasksTodo).length"
@@ -62,6 +66,7 @@ export default {
   },
   computed: {
     ...mapGetters("tasks", ["tasksTodo", "tasksCompleted"]),
+    ...mapGetters("settings", ["settings"]),
     ...mapState("tasks", ["search"])
   },
   methods: {},
@@ -82,8 +87,8 @@ export default {
 </script>
 
 <style lang="scss">
-  .q-scroll-area-tasks {
-    display: flex;
-    flex-grow: 1;
-  }
+.q-scroll-area-tasks {
+  display: flex;
+  flex-grow: 1;
+}
 </style>
