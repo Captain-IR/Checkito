@@ -99,7 +99,7 @@ export default {
           persistent: true
         })
         .onOk(() => {
-          this.deleteTask(taskId);
+          this.deleteTodo(taskId);
         });
     }
   },

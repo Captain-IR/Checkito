@@ -1,5 +1,7 @@
+import { Notify } from 'quasar'
 import axios from "../../util/axios";
 import { showErrorMessage } from "src/functions/show-error-msg";
+
 
 export async function getTasks({ commit }) {
   const graphqlQuery = {
@@ -18,8 +20,9 @@ export async function getTasks({ commit }) {
   try {
     const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
     commit("GET_TODOS", res.data.data.todos);
+    commit('SET_TASKS_DOWNLOADED', true)
   } catch (error) {
-    showErrorMessage(error.response.data.errors[0].message);
+    showErrorMessage(error);
   }
 }
 
@@ -41,8 +44,9 @@ export async function addTodo({ commit }, task) {
   try {
     const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
     commit("ADD_TODO", res.data.data.createTodo);
+    Notify.create('Task Added!')
   } catch (error) {
-    console.log(error);
+    showErrorMessage(error);
   }
 }
 
@@ -66,7 +70,7 @@ export async function updateStatus({ commit }, { id, updates }) {
     const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
     commit("UPDATE_STATUS", res.data.data.updateTodo);
   } catch (error) {
-    console.log(error);
+    showErrorMessage(error);
   }
 }
 
@@ -91,8 +95,9 @@ export async function updateTodo({ commit, dispatch }, { id, updates }) {
   try {
     const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
     commit("UPDATE_TODO", res.data.data.updateTodo);
+    Notify.create('Task Updated!')
   } catch (error) {
-    console.log(error);
+    showErrorMessage(error);
   }
 }
 
@@ -107,8 +112,9 @@ export async function deleteTodo({ commit }, id) {
   try {
     const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
     commit("DELETE_TODO", id);
+    Notify.create('Task Deleted!')
   } catch (error) {
-    console.log(error);
+    showErrorMessage(error);
   }
 }
 

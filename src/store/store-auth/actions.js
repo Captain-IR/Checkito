@@ -17,7 +17,7 @@ export async function registerUser({ commit }, { email, password }) {
   try {
     const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
   } catch (error) {
-    showErrorMessage(error.response.data.errors[0].message);
+    showErrorMessage(error);
   }
 }
 
@@ -39,8 +39,7 @@ export async function loginUser({ commit, dispatch }, { email, password }) {
     dispatch("authState");
     Loading.hide();
   } catch (error) {
-    showErrorMessage(error.response.data.errors[0].message);
-    Loading.hide();
+    showErrorMessage(error);
   }
 }
 
@@ -48,7 +47,8 @@ export function logoutUser({ commit }) {
   commit("SET_AUTH", { token: null, loggedIn: false });
   LocalStorage.remove("token");
   LocalStorage.remove("loggedIn");
-  this.$router.replace("/auth");
+  this.$router.push("/auth");
+  commit("tasks/SET_TASKS_DOWNLOADED", false, { root: true });
 }
 
 export async function authState({ commit, dispatch }) {
@@ -69,10 +69,7 @@ export async function authState({ commit, dispatch }) {
     }
     Loading.hide();
   } catch (error) {
-    commit("SET_AUTH", { token: null, loggedIn: false });
-    LocalStorage.remove("token");
-    LocalStorage.remove("loggedIn");
-    this.$router.replace("/auth");
-    showErrorMessage(error.response.data.errors[0].message);
+    dispatch('logoutUser')
+    showErrorMessage(error);
   }
 }
