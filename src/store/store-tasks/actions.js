@@ -1,5 +1,4 @@
 import axios from "../../util/axios";
-import { uid } from "quasar";
 import { showErrorMessage } from "src/functions/show-error-msg";
 
 export async function getTasks({ commit }) {
@@ -18,8 +17,7 @@ export async function getTasks({ commit }) {
   };
   try {
     const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
-    console.log(res);
-    commit("GET_TASKS", res.data.data.todos);
+    commit("GET_TODOS", res.data.data.todos);
   } catch (error) {
     showErrorMessage(error.response.data.errors[0].message);
   }
@@ -43,8 +41,8 @@ export async function addTodo({ commit }, task) {
   try {
     const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
     commit("ADD_TODO", res.data.data.createTodo);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -64,16 +62,54 @@ export async function updateStatus({ commit }, { id, updates }) {
         }
       `
   };
-  const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
-  commit("UPDATE_STATUS", res.data.data.updateTodo);
+  try {
+    const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
+    commit("UPDATE_STATUS", res.data.data.updateTodo);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-export function updateTask({ commit }, todo) {
-  commit("UPDATE_TASK", todo);
+export async function updateTodo({ commit, dispatch }, { id, updates }) {
+  const graphqlQuery = {
+    query: `
+      mutation {
+        updateTodo(id: ${id}, todoInput: {
+          title: "${updates.title}",
+          dueDate: "${updates.dueDate}",
+          dueTime: "${updates.dueTime}"
+        }) {
+          id
+          title
+          completed
+          dueDate
+          dueTime
+        }
+      }
+    `
+  };
+  try {
+    const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
+    commit("UPDATE_TODO", res.data.data.updateTodo);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-export function deleteTask({ commit }, id) {
-  commit("DELETE_TASK", id);
+export async function deleteTodo({ commit }, id) {
+  const graphqlQuery = {
+    query: `
+      mutation {
+        deleteTodo(id: ${id})
+      }
+    `
+  };
+  try {
+    const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
+    commit("DELETE_TODO", id);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export function setSearch({ commit }, value) {

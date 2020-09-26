@@ -1,7 +1,9 @@
 <template>
   <q-item
     clickable
-    @click="updateStatus({ id: task.id, updates: { completed: !task.completed } })"
+    @click="
+      updateStatus({ id: task.id, updates: { completed: !task.completed } })
+    "
     :class="task.completed ? 'bg-green-1' : 'bg-orange-1'"
     v-touch-hold:1000.mouse="showEditTaskModal"
     v-ripple
@@ -84,7 +86,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("tasks", ["updateTask", "updateStatus", "deleteTask"]),
+    ...mapActions("tasks", ["updateStatus", "deleteTodo"]),
     showEditTaskModal() {
       this.showEditTask = true;
     },

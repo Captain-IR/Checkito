@@ -16,7 +16,6 @@ export async function registerUser({ commit }, { email, password }) {
   };
   try {
     const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
-    console.log(res);
   } catch (error) {
     showErrorMessage(error.response.data.errors[0].message);
   }
@@ -46,7 +45,6 @@ export async function loginUser({ commit, dispatch }, { email, password }) {
 }
 
 export function logoutUser({ commit }) {
-  console.log("logoutUser");
   commit("SET_AUTH", { token: null, loggedIn: false });
   LocalStorage.remove("token");
   LocalStorage.remove("loggedIn");

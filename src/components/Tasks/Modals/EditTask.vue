@@ -32,9 +32,9 @@ export default {
     };
   },
   methods: {
-    ...mapActions("tasks", ["updateTask"]),
+    ...mapActions("tasks", ["updateTodo"]),
     submitTask: function() {
-      this.updateTask({
+      this.updateTodo({
         id: this.task.id,
         updates: this.taskToSubmit
       });
