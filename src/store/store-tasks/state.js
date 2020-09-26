@@ -1,6 +1,8 @@
 export default function() {
   return {
     tasks: [],
+    search: "",
+    sort: "title"
     // tasks: {
     //   ID1: {
     //     name: "Go to shop",
@@ -21,7 +23,5 @@ export default function() {
     //     dueTime: "01:00"
     //   },
     // },
-    search: "",
-    sort: "name"
   };
 }

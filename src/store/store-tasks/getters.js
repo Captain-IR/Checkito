@@ -1,35 +1,33 @@
 export function tasksSorted(state) {
-  let tasksSorted = {};
-  let keysOrdered = Object.keys(state.tasks);
-  keysOrdered.sort((a, b) => {
-    let taskAProp = state.tasks[a][state.sort].toLowerCase();
-    let taskBProp = state.tasks[b][state.sort].toLowerCase();
+  let tasksSorted = [];
+  let tasks = [...state.tasks];
+  // let keysOrdered = Object.keys(state.tasks);
+  tasks.sort((a, b) => {
+    let taskAProp = a[state.sort].toLowerCase();
+    let taskBProp = b[state.sort].toLowerCase();
 
-    if (taskAProp > taskBProp) return 1
-    else if (taskAProp < taskBProp) return -1
-    else return 0
-
+    if (taskAProp > taskBProp) return 1;
+    else if (taskAProp < taskBProp) return -1;
+    else return 0;
   });
 
-  keysOrdered.forEach((key => {
-    tasksSorted[key] = state.tasks[key]
-  }))
-
+  tasks.forEach(task => {
+    tasksSorted.push(task);
+  });
   return tasksSorted;
 }
 
 export function tasksFiltered(state, getters) {
-  let tasksSorted = getters.tasksSorted
-  let tasksFiltered = {};
+  let tasksSorted = getters.tasksSorted;
+  let tasksFiltered = [];
   if (state.search) {
     // populate empty object
-    Object.keys(tasksSorted).forEach(function(key) {
-      const task = tasksSorted[key],
-        taskNameLower = task.name.toLowerCase(),
+    tasksSorted.forEach(task => {
+        taskNameLower = task.title.toLowerCase(),
         stateSearchLower = state.search.toLowerCase();
 
       if (taskNameLower.includes(stateSearchLower)) {
-        tasksFiltered[key] = task;
+        tasksFiltered.push(task)
       }
     });
     return tasksFiltered;
@@ -39,11 +37,10 @@ export function tasksFiltered(state, getters) {
 
 export function tasksTodo(state, getters) {
   let tasksFiltered = getters.tasksFiltered;
-  let tasks = {};
-  Object.keys(tasksFiltered).forEach(key => {
-    let task = tasksFiltered[key];
+  let tasks = [];
+  tasksFiltered.forEach(task => {
     if (!task.completed) {
-      tasks[key] = { ...task };
+      tasks.push(task);
     }
   });
   return tasks;
@@ -51,11 +48,10 @@ export function tasksTodo(state, getters) {
 
 export function tasksCompleted(state, getters) {
   let tasksFiltered = getters.tasksFiltered;
-  let tasks = {};
-  Object.keys(tasksFiltered).forEach(key => {
-    let task = tasksFiltered[key];
+  let tasks = [];
+  tasksFiltered.forEach(task => {
     if (task.completed) {
-      tasks[key] = { ...task };
+      tasks.push(task);
     }
   });
   return tasks;

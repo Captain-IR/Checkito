@@ -1,7 +1,7 @@
 <template>
   <q-item
     clickable
-    @click="updateTask({ id, updates: { completed: !task.completed } })"
+    @click="updateStatus({ id: task.id, updates: { completed: !task.completed } })"
     :class="task.completed ? 'bg-green-1' : 'bg-orange-1'"
     v-touch-hold:1000.mouse="showEditTaskModal"
     v-ripple
@@ -12,7 +12,7 @@
     <q-item-section>
       <q-item-label
         :class="{ 'text-strike': task.completed }"
-        v-html="$options.filters.searchHighlight(task.name, search)"
+        v-html="$options.filters.searchHighlight(task.title, search)"
       ></q-item-label>
     </q-item-section>
 
@@ -35,7 +35,7 @@
     <q-item-section side>
       <div class="row">
         <q-btn
-          @click.stop="showEditTaskModal"
+          @click.stop="showEditTask = true"
           flat
           round
           dense
@@ -43,7 +43,7 @@
           icon="edit"
         />
         <q-btn
-          @click.stop="promptToDelete(id)"
+          @click.stop="promptToDelete(task.id)"
           flat
           round
           dense
@@ -54,7 +54,7 @@
     </q-item-section>
 
     <q-dialog v-model="showEditTask">
-      <EditTask @close="showEditTask = false" :task="task" :id="id" />
+      <EditTask @close="showEditTask = false" :task="task" />
     </q-dialog>
   </q-item>
 </template>
@@ -64,7 +64,7 @@ import { mapState, mapActions, mapGetters } from "vuex";
 import { date } from "quasar";
 
 export default {
-  props: ["task", "id"],
+  props: ["task"],
   data: function() {
     return {
       showEditTask: false
@@ -84,11 +84,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions("tasks", ["updateTask", "deleteTask"]),
+    ...mapActions("tasks", ["updateTask", "updateStatus", "deleteTask"]),
     showEditTaskModal() {
       this.showEditTask = true;
     },
-    promptToDelete: function(id) {
+    promptToDelete: function(taskId) {
       this.$q
         .dialog({
           title: "Confirm",
@@ -97,7 +97,7 @@ export default {
           persistent: true
         })
         .onOk(() => {
-          this.deleteTask(id);
+          this.deleteTask(taskId);
         });
     }
   },

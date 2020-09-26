@@ -2,14 +2,14 @@
   <div class="row q-mb-sm">
     <!-- autofocus removed -->
     <q-input
-      @input="$emit('update:name', $event)"
+      @input="$emit('update:title', $event)"
       outlined
       v-select-all
       clearable
       label="Title"
       class="col"
-      ref="name"
-      :value="name"
+      ref="title"
+      :value="title"
       :rules="[val => !!val || 'Field is required']"
     >
       <template v-slot:append> </template>
@@ -21,7 +21,7 @@
 import { selectAll } from "src/directives/directive-select-all";
 
 export default {
-  props: ["name"],
+  props: ["title"],
   directives: {
     selectAll
   }

@@ -37,6 +37,7 @@ export async function loginUser({ commit, dispatch }, { email, password }) {
     LocalStorage.set("token", res.data.data.loginUser);
     LocalStorage.set("loggedIn", true);
     this.$router.push("/");
+    dispatch("authState");
     Loading.hide();
   } catch (error) {
     showErrorMessage(error.response.data.errors[0].message);

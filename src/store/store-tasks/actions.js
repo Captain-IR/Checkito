@@ -25,17 +25,51 @@ export async function getTasks({ commit }) {
   }
 }
 
-export function addTask({ commit }, task) {
-  let taskId = uid();
-  let payload = {
-    id: taskId,
-    task
+export async function addTodo({ commit }, task) {
+  const { title, completed, dueDate, dueTime } = task;
+  const graphqlQuery = {
+    query: `
+      mutation {
+        createTodo(todoInput: {title: "${title}", completed: ${completed}, dueDate: "${dueDate}", dueTime: "${dueTime}"}) {
+          id
+          title
+          completed
+          dueDate
+          dueTime
+        }
+      }
+    `
   };
-  commit("ADD_TASK", payload);
+  try {
+    const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
+    commit("ADD_TODO", res.data.data.createTodo);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-export function updateTask({ commit }, payload) {
-  commit("UPDATE_TASK", payload);
+export async function updateStatus({ commit }, { id, updates }) {
+  const graphqlQuery = {
+    query: `
+        mutation {
+          updateTodo(id: ${id}, todoInput: {
+            completed: ${updates.completed}
+          }) {
+            id
+            title
+            completed
+            dueDate
+            dueTime
+          }
+        }
+      `
+  };
+  const res = await axios.post("/graphql", JSON.stringify(graphqlQuery));
+  commit("UPDATE_STATUS", res.data.data.updateTodo);
+}
+
+export function updateTask({ commit }, todo) {
+  commit("UPDATE_TASK", todo);
 }
 
 export function deleteTask({ commit }, id) {

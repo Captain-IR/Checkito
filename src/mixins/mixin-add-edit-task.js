@@ -1,9 +1,9 @@
 export default {
   methods: {
     submitForm: function() {
-      this.$refs.modalTaskName.$refs.name.validate();
-      console.log(this.$refs.name);
-      if (!this.$refs.modalTaskName.$refs.name.hasError) {
+      this.$refs.modalTaskTitle.$refs.title.validate();
+      console.log(this.$refs.title);
+      if (!this.$refs.modalTaskTitle.$refs.title.hasError) {
         this.submitTask();
       }
     }
@@ -11,7 +11,7 @@ export default {
   components: {
     ModalHeader: require("components/Tasks/Modals/Shared/ModalHeader.vue")
       .default,
-    ModalTaskName: require("components/Tasks/Modals/Shared/ModalTaskName.vue")
+    ModalTaskTitle: require("components/Tasks/Modals/Shared/ModalTaskTitle.vue")
       .default,
     ModalDueDate: require("components/Tasks/Modals/Shared/ModalDueDate.vue")
       .default,

@@ -26,7 +26,7 @@
         />
 
         <TasksTodo
-          v-if="Object.keys(tasksTodo).length"
+          v-if="tasksTodo.length"
           :tasksTodo="tasksTodo"
         />
 

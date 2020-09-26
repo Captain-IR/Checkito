@@ -4,7 +4,7 @@
 
     <form @submit.prevent="submitForm">
       <q-card-section class="q-pt-none">
-        <ModalTaskName :name.sync="taskToSubmit.name" ref="modalTaskName" />
+        <ModalTaskTitle :title.sync="taskToSubmit.title" ref="modalTaskTitle" />
 
         <ModalDueDate :dueDate.sync="taskToSubmit.dueDate" />
 
@@ -27,17 +27,17 @@ export default {
   data: function() {
     return {
       taskToSubmit: {
-        name: "",
+        title: "",
+        completed: false,
         dueDate: "",
         dueTime: "",
-        completed: false
       }
     };
   },
   methods: {
-    ...mapActions("tasks", ["addTask"]),
+    ...mapActions("tasks", ["addTodo"]),
     submitTask: function() {
-      this.addTask(this.taskToSubmit);
+      this.addTodo(this.taskToSubmit);
       this.$emit("close");
     }
   }

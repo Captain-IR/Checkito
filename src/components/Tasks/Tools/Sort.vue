@@ -18,8 +18,8 @@ export default {
     return {
       options: [
         {
-          label: "Name",
-          value: "name"
+          label: "Title",
+          value: "title"
         },
         {
           label: "Date",

@@ -4,9 +4,18 @@ export function GET_TASKS(state, tasks) {
   state.tasks = [...tasks];
 }
 
-export function ADD_TASK(state, payload) {
-  const { id, task } = payload;
-  Vue.set(state.tasks, id, task);
+export function ADD_TODO(state, task) {
+  state.tasks.push(task);
+}
+
+export function UPDATE_STATUS(state, todo) {
+  const tasks = state.tasks.map(task => {
+    if (task.id == todo.id) {
+      return { ...task, completed: !todo.completed };
+    }
+    return task;
+  });
+  state.tasks = [...tasks];
 }
 
 export function UPDATE_TASK(state, { id, updates }) {

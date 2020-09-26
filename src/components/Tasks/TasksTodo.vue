@@ -11,11 +11,10 @@
 
       <q-list bordered separator>
         <Task
-          v-for="(task, key) in tasksTodo"
-          :key="key"
-          :task="task"
-          :id="key"
-        />
+        v-for="task in tasksTodo"
+        :key="task.id"
+        :task="task"
+      />
       </q-list>
     </div>
   </transition>
