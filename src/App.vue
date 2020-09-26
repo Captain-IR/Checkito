@@ -9,11 +9,11 @@ import { mapActions } from "vuex";
 export default {
   methods: {
     ...mapActions("settings", ["getSettings"]),
-    ...mapActions("auth", ["handleAuthStateChange"])
+    ...mapActions("auth", ["authState"])
   },
   mounted: function() {
     this.getSettings();
-    this.handleAuthStateChange();
+    this.authState();
   }
 };
 </script>

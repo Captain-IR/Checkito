@@ -1,5 +1,9 @@
 import Vue from "vue";
 
+export function GET_TASKS(state, tasks) {
+  state.tasks = [...tasks];
+}
+
 export function ADD_TASK(state, payload) {
   const { id, task } = payload;
   Vue.set(state.tasks, id, task);
