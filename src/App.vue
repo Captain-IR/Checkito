@@ -4,14 +4,16 @@
   </div>
 </template>
 <script>
-import {mapActions} from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
   methods: {
-    ...mapActions('settings', ['getSettings'])
+    ...mapActions("settings", ["getSettings"]),
+    ...mapActions("auth", ["handleAuthStateChange"])
   },
   mounted: function() {
-    this.getSettings()
+    this.getSettings();
+    this.handleAuthStateChange();
   }
 };
 </script>

@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   props: ["tab"],
   data() {
@@ -72,12 +74,13 @@ export default {
     };
   },
   methods: {
+    ...mapActions('auth', ['registerUser', 'loginUser']),
     submitForm: function() {
       if (this.tab == "login") {
         this.$refs.email.validate();
         this.$refs.password.validate();
         if (!this.$refs.email.hasError && !this.$refs.password.hasError) {
-          console.log("login the user");
+          this.loginUser(this.formData)
         }
       } else if (this.tab == "register") {
         this.$refs.email.validate();
@@ -88,7 +91,7 @@ export default {
           !this.$refs.password.hasError &&
           !this.$refs.confirmPassword.hasError
         ) {
-          console.log("register the user");
+          this.registerUser(this.formData)
         }
       }
     },

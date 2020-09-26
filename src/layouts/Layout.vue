@@ -6,10 +6,21 @@
           Checkito
         </q-toolbar-title>
         <q-btn
+          v-if="!loggedIn"
           to="/auth"
           flat
           icon-right="account_circle"
           label="Login"
+          class="absolute-right"
+        />
+
+        <q-btn
+          v-else
+          @click="logoutUser"
+          to="/auth"
+          flat
+          icon-right="account_circle"
+          label="Logout"
           class="absolute-right"
         />
       </q-toolbar>
@@ -48,6 +59,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import Nav from "components/Nav.vue";
 
 const links = [
@@ -65,13 +77,19 @@ const links = [
 
 export default {
   name: "MainLayout",
-  components: { Nav, Tabs: require("components/Tabs").default },
-  data() {
+  data: function() {
     return {
       leftDrawerOpen: false,
       links
     };
-  }
+  },
+  computed: {
+    ...mapState("auth", ["loggedIn"])
+  },
+  methods: {
+    ...mapActions('auth', ['logoutUser']),
+  },
+  components: { Nav, Tabs: require("components/Tabs").default }
 };
 </script>
 
