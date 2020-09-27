@@ -17,7 +17,7 @@ module.exports = function(/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
-    boot: ['router-auth'],
+    boot: ["router-auth"],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: ["app.scss"],
@@ -39,6 +39,10 @@ module.exports = function(/* ctx */) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: "hash", // available values: 'hash', 'history'
+      env: {
+        LOCAL: 'http://localhost:5000',
+        API: "https://checkitodo-server.herokuapp.com"
+      },
 
       // transpile: false,
 
@@ -103,8 +107,8 @@ module.exports = function(/* ctx */) {
       workboxPluginMode: "GenerateSW", // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: `Quasar Todo`,
-        short_name: `Quasar Todo`,
+        name: `Checkitodo`,
+        short_name: `Checkitodo`,
         description: `A Quasar Framework app`,
         display: "standalone",
         orientation: "portrait",
@@ -152,7 +156,7 @@ module.exports = function(/* ctx */) {
 
     // Full list of options: https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
     electron: {
-      bundler: "packager", // 'packager' or 'builder'
+      bundler: "builder", // 'packager' or 'builder'
 
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
@@ -167,8 +171,11 @@ module.exports = function(/* ctx */) {
 
       builder: {
         // https://www.electron.build/configuration/configuration
-
-        appId: "awesome-todo"
+        appId: "com.checkitodo.electron",
+        win: {
+          target: "nsis",
+          icon: "src-electron/icons/icon.ico"
+        }
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration

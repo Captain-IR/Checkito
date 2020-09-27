@@ -1,4 +1,4 @@
-# Quasar Todo (awesome-todo)
+# Checkitodo (awesome-todo)
 
 A Quasar Framework app
 

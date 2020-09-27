@@ -2,7 +2,7 @@
   "name": "awesome-todo",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "Quasar Todo",
+  "productName": "Checkitodo",
   "author": "Captain IR <52345388+Captain-IR@users.noreply.github.com>",
   "private": true,
   "scripts": {
@@ -15,7 +15,13 @@
     "quasar": "^1.0.0"
   },
   "devDependencies": {
-    "@quasar/app": "^2.0.0"
+    "@quasar/app": "^2.0.0",
+    "devtron": "^1.4.0",
+    "electron": "^9.0.0",
+    "electron-builder": "^22.4.0",
+    "electron-debug": "^3.0.1",
+    "electron-devtools-installer": "^3.0.0",
+    "electron-packager": "^14.1.1"
   },
   "browserslist": [
     "last 10 Chrome versions",
