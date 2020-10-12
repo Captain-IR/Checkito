@@ -1,9 +1,9 @@
 {
-  "name": "awesome-todo",
-  "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Checkitodo",
-  "author": "Captain IR <52345388+Captain-IR@users.noreply.github.com>",
+  "name": "todolisa-web",
+  "version": "1.0.0",
+  "description": "Todolisa front-end applications",
+  "author": "Captain IR",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "test": "echo \"No test specified\" && exit 0"
