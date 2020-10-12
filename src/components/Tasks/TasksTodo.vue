@@ -10,11 +10,7 @@
       >
 
       <q-list bordered separator>
-        <Task
-        v-for="task in tasksTodo"
-        :key="task.id"
-        :task="task"
-      />
+        <Task v-for="task in tasksTodo" :key="task.id" :task="task" />
       </q-list>
     </div>
   </transition>
@@ -26,12 +22,12 @@ import { mapGetters } from "vuex";
 export default {
   props: ["tasksTodo"],
   computed: {
-    ...mapGetters("settings", ["settings"])
+    ...mapGetters("settings", ["settings"]),
   },
   components: {
     Task: require("components/Tasks/Task.vue").default,
-    ListHeader: require("components/Shared/ListHeader.vue").default
-  }
+    ListHeader: require("components/Shared/ListHeader.vue").default,
+  },
 };
 </script>
 

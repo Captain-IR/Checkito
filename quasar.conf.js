@@ -40,8 +40,8 @@ module.exports = function(/* ctx */) {
     build: {
       vueRouterMode: "hash", // available values: 'hash', 'history'
       env: {
-        LOCAL: 'http://localhost:5000',
-        API: "https://checkitodo-server.herokuapp.com"
+        LOCAL: "http://localhost:5000",
+        API: "https://todolisa-server.herokuapp.com"
       },
 
       // transpile: false,
@@ -107,9 +107,9 @@ module.exports = function(/* ctx */) {
       workboxPluginMode: "GenerateSW", // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: `Checkitodo`,
-        short_name: `Checkitodo`,
-        description: `A Quasar Framework app`,
+        name: `Todolisa`,
+        short_name: `Todolisa`,
+        description: `Todolisa front-end applications`,
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",
@@ -171,7 +171,7 @@ module.exports = function(/* ctx */) {
 
       builder: {
         // https://www.electron.build/configuration/configuration
-        appId: "com.checkitodo.electron",
+        appId: "com.todolisa.electron",
         win: {
           target: "nsis",
           icon: "src-electron/icons/icon.ico"

@@ -4,7 +4,7 @@
     @click="
       updateStatus({ id: task.id, updates: { completed: !task.completed } })
     "
-    :class="task.completed ? 'bg-green-1' : 'bg-orange-1'"
+    :class="task.completed ? 'bg-green-1' : 'bg-grey-2'"
     v-touch-hold:1000.mouse="showEditTaskModal"
     v-ripple
   >
@@ -67,15 +67,15 @@ import { date } from "quasar";
 
 export default {
   props: ["task"],
-  data: function() {
+  data: function () {
     return {
-      showEditTask: false
+      showEditTask: false,
     };
   },
   computed: {
     ...mapState("tasks", ["search"]),
     ...mapGetters("settings", ["settings"]),
-    taskDueTime: function() {
+    taskDueTime: function () {
       if (this.settings.show12HourTimeFormat) {
         return date.formatDate(
           this.task.dueDate + " " + this.task.dueTime,
@@ -83,43 +83,43 @@ export default {
         );
       }
       return this.task.dueTime;
-    }
+    },
   },
   methods: {
     ...mapActions("tasks", ["updateStatus", "deleteTodo"]),
     showEditTaskModal() {
       this.showEditTask = true;
     },
-    promptToDelete: function(taskId) {
+    promptToDelete: function (taskId) {
       this.$q
         .dialog({
           title: "Confirm",
           message: "Are you sure?",
           cancel: true,
-          persistent: true
+          persistent: true,
         })
         .onOk(() => {
           this.deleteTodo(taskId);
         });
-    }
+    },
   },
   components: {
-    EditTask: require("components/Tasks/Modals/EditTask.vue").default
+    EditTask: require("components/Tasks/Modals/EditTask.vue").default,
   },
   filters: {
-    niceDate: function(value) {
+    niceDate: function (value) {
       return date.formatDate(value, "ddd MMM-D");
     },
-    searchHighlight: function(value, search) {
+    searchHighlight: function (value, search) {
       let searchRegExp = new RegExp(search, "gi");
       if (search) {
-        return value.replace(searchRegExp, match => {
+        return value.replace(searchRegExp, (match) => {
           return `<span class="bg-yellow-6">${match}</span>`;
         });
       }
       return value;
-    }
-  }
+    },
+  },
 };
 </script>
 

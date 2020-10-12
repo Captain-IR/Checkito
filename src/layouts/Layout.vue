@@ -2,9 +2,7 @@
   <q-layout view="hHh lpR fFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title class="absolute-center">
-          Checkito
-        </q-toolbar-title>
+        <q-toolbar-title class="absolute-center"> Todolisa </q-toolbar-title>
         <q-btn
           v-if="!loggedIn"
           to="/auth"
@@ -34,9 +32,7 @@
       content-class="bg-primary"
     >
       <q-list dark>
-        <q-item-label header class="text-grey-4">
-          Navigation
-        </q-item-label>
+        <q-item-label header class="text-grey-4"> Navigation </q-item-label>
         <Nav
           class="text-grey-5"
           v-for="link in links"
@@ -66,30 +62,30 @@ const links = [
   {
     title: "Todo",
     icon: "list",
-    link: "/"
+    link: "/",
   },
   {
     title: "Settings",
     icon: "settings",
-    link: "/settings"
-  }
+    link: "/settings",
+  },
 ];
 
 export default {
   name: "MainLayout",
-  data: function() {
+  data: function () {
     return {
       leftDrawerOpen: false,
-      links
+      links,
     };
   },
   computed: {
-    ...mapState("auth", ["loggedIn"])
+    ...mapState("auth", ["loggedIn"]),
   },
   methods: {
-    ...mapActions('auth', ['logoutUser']),
+    ...mapActions("auth", ["logoutUser"]),
   },
-  components: { Nav, Tabs: require("components/Tabs").default }
+  components: { Nav, Tabs: require("components/Tabs").default },
 };
 </script>
 
