@@ -1,7 +1,7 @@
 {
-  "name": "todolisa-web",
-  "version": "1.0.0",
-  "description": "Todolisa front-end applications",
+  "name": "todolisa-apps",
+  "version": "1.0.1",
+  "description": "Todolisa web, android and windows applications",
   "author": "Captain IR",
   "license": "MIT",
   "private": true,
