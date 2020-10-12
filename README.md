@@ -1,5 +1,6 @@
 # Welcome to todolisa-web 👋
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/bec1250a-90c6-4869-9c91-85a97977deea/deploy-status)](https://app.netlify.com/sites/todolisa-web/deploys)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 ![Prerequisite](https://img.shields.io/badge/node-%3E%3D%2010.18.1-blue.svg)
 ![Prerequisite](https://img.shields.io/badge/yarn-%3E%3D%201.21.1-blue.svg)
